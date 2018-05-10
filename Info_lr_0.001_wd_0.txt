@@ -1,0 +1,10 @@
+Dataset      : ISBI2012
+Start Epoch  : 0
+End Epoch    : 100
+Learning rate: 0.001
+Momentum     : 0.99
+Weight decay : 0
+Use padding  : True
+Epoche [    1] train_loss: 0.4911 val_loss: 0.4643 loop time: 9.95501
+Epoche [    2] train_loss: 0.4630 val_loss: 0.5017 loop time: 5.84586
+Epoche [    3] train_loss: 0.4460 val_loss: 0.4637 loop time: 5.50778
