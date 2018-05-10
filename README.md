@@ -4,6 +4,14 @@ U-Net Implementation for Pytorch 0.4
 Custom Dataloader for the ISBI 2012 Challenge Dataset + Data Augmentation   
 The dataset is not included in this repro   
 
+## Requirements
+Tested on:      
+Ubuntu 16.04      
+Geforce GTX 1070 8GB Nvidia Driver 390.48 CUDA 9.1   
+Python 2.7.14   
+Pytorch 0.4   
+conda install pytorch torchvision cuda91 -c pytorch   
+
 U-Net: Convolutional Networks for Biomedical Image Segmentation   
 https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/   
 Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. "U-net: Convolutional networks for biomedical image segmentation." International Conference on Medical image computing and computer-assisted intervention. Springer, Cham, 2015.   
