@@ -103,7 +103,7 @@ def eval(valloader, model, criterion, save_image):
         loss_sum = loss_sum + running_loss
 
         if save_image:
-            save_image(outputs, './eval/', 'eval', index=i)
+            save_images(outputs, './eval/', 'eval', index=i)
 
         del outputs, val, label, loss
 
@@ -139,8 +139,8 @@ parser.add_argument('-mbs', '--mini-batch-size', dest='minibatchsize', type=int,
                                                  'For 8k memory on gpu, minibatchsize of 2-3 possible')
 parser.add_argument('-j', '--workers', default=2, type=int, metavar='N',
                     help='number of data loading workers (default: 2)')
-parser.add_argument('--epochs', default=100, type=int, metavar='N',
-                    help='number of total epochs to run (default: 100)')
+parser.add_argument('--epochs', default=20, type=int, metavar='N',
+                    help='number of total epochs to run (default: 20)')
 parser.add_argument('-lr', default=0.001, type=float,
                     metavar='LR', help='initial learning rate (default: 0.001)')
 parser.add_argument('--momentum', default=0.99, type=float, metavar='M',
@@ -191,6 +191,7 @@ if args.bn:
 else:
     model = model.Unet().to(device)
 
+
 # use cudnn for better speed, if available
 if device.type == "cuda":
     cudnn.benchmark = True
@@ -216,11 +217,11 @@ optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum, we
 if args.data == "ISBI2012":
     trainset = ISBI.ISBIDataset(
         "./ISBI 2012/Train-Volume/train-volume-*.tif", "./ISBI 2012/Train-Labels/train-labels-*.tif",
-        length=24, is_pad=args.pad, eval=False, totensor=True)
+        length=408, is_pad=args.pad, eval=False, totensor=True)
 
     valset = ISBI.ISBIDataset(
         "./ISBI 2012/Val-Volume/train-volume-*.tif", "./ISBI 2012/Val-Labels/train-labels-*.tif",
-        length=6, is_pad=args.pad, eval=True, totensor=True)
+        length=102, is_pad=args.pad, eval=True, totensor=True)
 elif args.data == "CTC2015":
     trainset = ISBI.ISBIDataset(
         "./ISBI 2012/Train-Volume/train-volume-*.tif", "./ISBI 2012/Train-Labels/train-labels-*.tif",
@@ -234,8 +235,8 @@ elif args.data == "CTC2015":
 # disable it  if system freezes, or swap is used a lot
 # https://discuss.pytorch.org/t/what-is-the-disadvantage-of-using-pin-memory/1702
 # batchsize is 1 for validation, to get a single output for loss and not a mean
-
-trainloader = dl.DataLoader(trainset, batch_size=args.minibatchsize,  num_workers=args.workers, pin_memory=True)
+# shuffle input data
+trainloader = dl.DataLoader(trainset, shuffle=True, batch_size=args.minibatchsize,  num_workers=args.workers, pin_memory=True)
 valloader = dl.DataLoader(valset, batch_size=1,  num_workers=args.workers, pin_memory=True)
 
 # 3: Training cycle forward, backward , update
@@ -265,7 +266,7 @@ print'Weight decay : ' + str(args.weight_decay)
 print'Use padding  : ' + str(args.pad)
 
 #  save a txt file with the console info
-if args.txt:
+if args.txt and not args.evaluate:
     with open("Info_lr_" + str(args.lr) + "_wd_" + str(args.weight_decay) + ".txt", "a") as myfile:
         myfile.write('Dataset      : ' + str(args.data))
         myfile.write('\n')
@@ -286,6 +287,7 @@ if args.txt:
 if args.evaluate:
     print " avg loss: " + str(eval(valloader, model, criterion, True))
 else:
+    print "***** Start Training *****"
     for epoch in range(args.start_epoch, args.epochs):
         start_time = time.time()
         train_loss = train(trainloader, model, criterion, optimizer, epoch)
