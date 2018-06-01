@@ -40,6 +40,9 @@ Python 2.7.14
 Pytorch 0.4   
 conda install pytorch torchvision cuda91 -c pytorch   
 
+Scikit is only needed for pre data augmentation ( in ISBI_split.py)   
+conda install -c anaconda scikit-image    
+
 U-Net: Convolutional Networks for Biomedical Image Segmentation   
 https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/   
 Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. "U-net: Convolutional networks for biomedical image segmentation." International Conference on Medical image computing and computer-assisted intervention. Springer, Cham, 2015.   
