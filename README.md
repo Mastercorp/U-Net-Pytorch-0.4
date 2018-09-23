@@ -1,48 +1,86 @@
-# U-Net-Pytorch-0.4
-U-Net Implementation for Pytorch 0.4
+# Introduction
+U-Net-Pytorch-0.4 is a custom U-Net implementation in python 2.7 for Pytorch 0.4.
+Furthermore, a custom dataloader is introduced, which can load the ISBI 2012 Dataset.
 
-Custom Dataloader for the ISBI 2012 Challenge Dataset + Data Augmentation   
-The dataset is not included in this repro   
+Details about the network can be found on the U-Net [project page](https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/).
+The implementation in this repository is tested on Ubuntu 16.04 with Python 2.7    
 
-## How to use:   
-
-First download the ISBI 2012 Dataset in your folder. Start ISBI_split.py which generates a folder structure.   
-for all options run:   
-main.py - h   
-
-for a simple start use:   
-main.py ISBI2012 -s -p -txt   
-
--s    saves the first image each epoche   
--p    uses padding to stop the reduction of image size caused by 3x3 convolutions   
--txt  save information about the used settings and losses each epoch   
-
-
-the txt file looks for example like this:   
-Dataset      : ISBI2012   
-Start Epoch  : 0   
-End Epoch    : 100   
-Learning rate: 0.001   
-Momentum     : 0.99   
-Weight decay : 0   
-Use padding  : True   
-Epoche [    1] train_loss: 0.4911 val_loss: 0.4643 loop time: 9.96429   
-Epoche [    2] train_loss: 0.4630 val_loss: 0.5017 loop time: 5.41091   
-Epoche [    3] train_loss: 0.4460 val_loss: 0.4637 loop time: 5.45516   
+# License
+The implementation is freely available under the MIT License,
+meaning that you can basically do with the code whatever you want.
 
 
 
-## Requirements
-Tested on:      
-Ubuntu 16.04      
-Geforce GTX 1070 8GB Nvidia Driver 390.48 CUDA 9.1   
-Python 2.7.14   
-Pytorch 0.4   
-conda install pytorch torchvision cuda91 -c pytorch   
+# Dependencies
+* Pytorch 0.4, Python 2.7, ( CUDA 9.1 for GPU acceleration )   
+ 
 
-Scikit is only needed for pre data augmentation ( in ISBI_split.py)   
-conda install -c anaconda scikit-image    
 
+
+# Building
+No building is required, just clone or download the github project in a directory. The programm is tested on Ubuntu 16.04 with a Geforce GTX 1070 8GB Nvidia Driver 390.48 CUDA 9.1, Python 2.7.14 and Pytorch 0.4  
+
+
+# Usage
+/python should start python 2.7 . You can check the version with /python --version
+```
+usage: /python main.py [-h] [-mbs N] [-j N] [--epochs N] [-lr LR] [--momentum M]
+               [-es M] [--weight-decay W] [-r PATH] [-e] [-s] [-c] [-p] [-txt]
+               [-bn]
+               dataset
+
+```
+## positional arguments
+* `dataset` ISBI2012
+
+## Optional arguments
+*  `-h, --help`            show the help message
+*  `-mbs N, --mini-batch-size N`
+                        mini batch size (default: 1). For 8k memory on gpu,
+                        minibatchsize of 2-3 possible
+*  `-j N, --workers N`     number of data loading workers (default: 2)
+*  `--epochs N`            number of total epochs to run (default: 20)
+*  `-lr LR`                initial learning rate (default: 0.001)
+*  `--momentum M`          momentum (default: 0.99)
+*  `-es M, --epochsave M`  save model every M epoch (default: 1)
+*  `--weight-decay W, -wd W`
+                        weight decay (L2 penalty ) (default:0)
+*  `-r PATH, --resume PATH`
+                        relative path to latest checkpoint, load all needed data to resume the network (default: none)   
+*  `-e, --evaluate`        evaluate model on validation set
+*  `-s, --save-images`     save the first image of output each epoche
+*  `-c, --cpu`             use cpu instead of gpu
+*  `-p, --pad`             use padding at each 3x3 convolution to maintain image
+                        size
+*  `-txt`                  save console output in txt
+*  `-bn`                   use u-net with batchnorm layers added after each
+                        convolution
+
+
+
+
+## Examples
+
+
+Use the ISBI2012 dataset and run for 600 epochs. Use padding at each 3x3 convolution and save information about the used settings and losses each epoch in a txt file.
+```
+python main.py ISBI2012 --epochs 600 -p -txt
+```
+the txt file looks like this:
+```
+Dataset : ISBI2012
+Start Epoch : 0
+End Epoch : 100
+Learning rate: 0.001
+Momentum : 0.99
+Weight decay : 0
+Use padding : True
+Epoche [ 1] train_loss: 0.4911 val_loss: 0.4643 loop time: 9.96429
+Epoche [ 2] train_loss: 0.4630 val_loss: 0.5017 loop time: 5.41091
+Epoche [ 3] train_loss: 0.4460 val_loss: 0.4637 loop time: 5.45516
+```
+
+## Sources
 U-Net: Convolutional Networks for Biomedical Image Segmentation   
 https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/   
 Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. "U-net: Convolutional networks for biomedical image segmentation." International Conference on Medical image computing and computer-assisted intervention. Springer, Cham, 2015.   
