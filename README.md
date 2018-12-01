@@ -22,7 +22,7 @@ No building is required, just clone or download the github project in a director
 
 
 # Usage
-/python should start python 2.7 . You can check the version with /python --version
+/python should start python 2.7 . You can check the version with python --version
 ```
 usage: /python main.py [-h] [-mbs N] [-j N] [--epochs N] [-lr LR] [--momentum M]
                [-es M] [--weight-decay W] [-r PATH] [-e] [-s] [-c] [-p] [-txt]
