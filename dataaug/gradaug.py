@@ -45,9 +45,9 @@ for t in range(args.smin, args.smax + args.stepsize, args.stepsize):
     dy /= np.max(np.abs(dy), axis=0)
     for it in range(args.iter):
 
-        # to shift in gradient direction scalex needs to be negative
-        # else it shifts in the other direction
-        # values are scaled with 1000. Depending on the task, this value needs to ajust
+        # to shift in the opposite direction of the gradient, scale needs to be negative
+        # else it shifts in the gradient direction
+        # values are scaled with 1000. Depending on the task, this value needs to adjust
         scalex = random.randint(1, 10) * args.scale
         scaley = random.randint(1, 10) * args.scale
 
