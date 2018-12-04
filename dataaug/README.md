@@ -22,8 +22,8 @@ usage: gradaug.py [-h] [-img IMAGEFILE] [-smin SIGMAMIN] [-stepsize INTEGER]
 
 ## Example
 
-python gradaug.py -img test.jpg -smin 70 -smax 100 -stepsize 10 -iter 10 -scale 1000
-30 images are generated
+python gradaug.py -img test.jpg -smin 70 -smax 100 -stepsize 10 -iter 10 -scale 1000   
+40 images are generated. 10 images at 70, 80, 90 and 100 sigma size for the gaussian blur.  Naming: outfile-1.tif to outfile-40.tif
 
 ## Important
 
