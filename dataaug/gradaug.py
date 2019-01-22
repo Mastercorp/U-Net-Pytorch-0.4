@@ -24,7 +24,6 @@ parser.add_argument('-scale', metavar='INTEGER', default=1000,
 
 
 args = parser.parse_args()
-
 image = Image.open(args.img).convert("L")
 
 ## GRADIENT Augmentation
@@ -41,8 +40,8 @@ for t in range(args.smin, args.smax + args.stepsize, args.stepsize):
     dx = np.gradient(flipimg.astype('float32'), axis=1)
 
     # normalize dx and dy
-    dx /= np.max(np.abs(dx), axis=0)
-    dy /= np.max(np.abs(dy), axis=0)
+    dx /= np.max(np.abs(dx))
+    dy /= np.max(np.abs(dy))
     for it in range(args.iter):
 
         # to shift in the opposite direction of the gradient, scale needs to be negative
@@ -61,7 +60,7 @@ for t in range(args.smin, args.smax + args.stepsize, args.stepsize):
         dyconv = gaussian_filter(dy, sigma, order=0, mode='mirror', truncate=3) * -scaley
 
 
-        x, y = np.meshgrid(np.arange(flipimg.shape[0]), np.arange(flipimg.shape[1]), indexing='xy')
+        x, y = np.meshgrid(np.arange(flipimg.shape[1]), np.arange(flipimg.shape[0]), indexing='xy')
 
         indices = [np.reshape(y + dyconv, (-1, 1)), np.reshape(x + dxconv, (-1, 1))]
         trainimg = Image.fromarray(
@@ -71,4 +70,3 @@ for t in range(args.smin, args.smax + args.stepsize, args.stepsize):
         trainimg = trainimg.transpose(Image.FLIP_TOP_BOTTOM)
         trainimg.save('outfile-%s.tif' % (imagestart,))
         imagestart += 1
-
