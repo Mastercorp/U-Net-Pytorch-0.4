@@ -14,7 +14,7 @@ meaning that you can basically do with the code whatever you want.
 
 
 # Dependencies
-* Pytorch 0.4, Python 2.7, ( CUDA 9.1 for GPU acceleration )   
+* Pytorch 0.4, Python 2.7, ( CUDA 9.1 for GPU acceleration ) scipy ( for data augmentation )
  
 
 
