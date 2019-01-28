@@ -5,6 +5,8 @@ Furthermore, a custom dataloader is introduced, which can load the ISBI 2012 Dat
 Details about the U-Net network can be found on the U-Net [project page](https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/).
 The implementation in this repository is tested on Ubuntu 16.04 with Python 2.7    
 
+In the  "practica final.pdf" you can find information about the used methods.
+
 # License
 The implementation is freely available under the MIT License,
 meaning that you can basically do with the code whatever you want.
