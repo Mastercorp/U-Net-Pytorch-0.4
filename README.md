@@ -1,5 +1,5 @@
 # Introduction
-U-Net-Pytorch-0.4 is a custom U-Net implementation in python 2.7 for Pytorch 0.4.
+U-Net-Pytorch-0.4 is a custom U-Net implementation in python 2.7 for Pytorch 0.41.
 Furthermore, a custom dataloader is introduced, which can load the ISBI 2012 Dataset.
 Dataaugmentation is applied in the dataloader.
 
