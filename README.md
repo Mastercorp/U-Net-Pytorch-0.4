@@ -13,7 +13,7 @@ The implementation is freely available under the MIT License,
 meaning that you can basically do with the code whatever you want.
 
 ## Dependencies
-* Pytorch 0.4, Python 2.7, ( CUDA 9.1 for GPU acceleration ) scipy ( for data augmentation ), sacred ( https://github.com/IDSIA/sacred )
+*   Pytorch 0.4, Python 2.7, ( CUDA 9.1 for GPU acceleration ) scipy ( for data augmentation ), sacred ( https://github.com/IDSIA/sacred )
  
 ## Building
 No building is required, just clone or download the github project in a directory. The programm is tested on Ubuntu 16.04 with a Geforce GTX 1070 8GB Nvidia Driver 390.48 CUDA 9.1, Python 2.7.14 and Pytorch 0.4  
@@ -27,23 +27,32 @@ usage: /python main.py
 ## Settings 
 Sacred is a tool to help you configure, organize, log and reproduce experiments. All important settings can be changed in the config.json file. ( only the dataset direction is hardcoded into main.py at line 203 to 214. If you use another dataset, just change the used direction. )
 
-*  `batch_size`
-                        mini batch size (default: 1). For 8k memory on gpu,
-                        minibatchsize of 2-3 possible
-*  `workers`     number of data loading workers (default: 2)
-*  `learningrate`                initial learning rate (default: 0.001)
-*  `momentum`          momentum (default: 0.99)
-*  `weightdecay`        weight decay (L2 penalty ) (default:0)
-*  `epochs`            number of total epochs to run (default: 600)
+*   `batch_size`   mini batch size (default: 1). For 8k memory on gpu, minibatchsize of 2-3 possible
 
-*  `resume`      relative path to latest checkpoint, load all needed data to resume the network (default: none)   
-*  `evaluate`        evaluate model on validation set
-*  `saveimages`     save the first image of output each epoche
-*  `cpu`             use cpu instead of gpu
-*  `padding`             use padding at each 3x3 convolution to maintain image
-                        size
-*  `txtinfo`                  save console output in txt
-*  `classweight`                 use classweights
+*   `workers`     number of data loading workers (default: 2)
+
+*   `learningrate`                initial learning rate (default: 0.001)
+
+*   `momentum`          momentum (default: 0.99)
+
+*   `weightdecay`        weight decay (L2 penalty ) (default:0)
+
+*   `epochs`            number of total epochs to run (default: 600)
+
+
+*   `resume`      relative path to latest checkpoint, load all needed data to resume the network (default: none)
+
+*   `evaluate`        evaluate model on validation set
+
+*   `saveimages`     save the first image of output each epoche
+
+*   `cpu`             use cpu instead of gpu
+
+*   `padding`             use padding at each 3x3 convolution to maintain image size
+
+*   `txtinfo`                  save console output in txt
+
+*   `classweight`                 use classweights
 
 ## Examples
 Use the ISBI2012 dataset and run for 600 epochs. Use padding at each 3x3 convolution and save information about the used settings and losses each epoch in a txt file.
