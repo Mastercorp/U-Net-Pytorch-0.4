@@ -1,3 +1,5 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1da555f619cb4b63915efb74e2c64f4f)](https://www.codacy.com/app/Mastercorp/U-Net-Pytorch-0.4?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Mastercorp/U-Net-Pytorch-0.4&amp;utm_campaign=Badge_Grade)
+
 # Introduction
 U-Net-Pytorch-0.4 is a custom U-Net implementation in python 2.7 for Pytorch 0.41.
 Furthermore, a custom dataloader is introduced, which can load the ISBI 2012 Dataset.
