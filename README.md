@@ -1,6 +1,7 @@
 # Introduction
 U-Net-Pytorch-0.4 is a custom U-Net implementation in python 2.7 for Pytorch 0.4.
 Furthermore, a custom dataloader is introduced, which can load the ISBI 2012 Dataset.
+Dataaugmentation is applied in the dataloader.
 
 Details about the U-Net network can be found on the U-Net [project page](https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/).
 The implementation in this repository is tested on Ubuntu 16.04 with Python 2.7    
@@ -14,7 +15,7 @@ meaning that you can basically do with the code whatever you want.
 
 
 # Dependencies
-* Pytorch 0.4, Python 2.7, ( CUDA 9.1 for GPU acceleration ) scipy ( for data augmentation )
+* Pytorch 0.4, Python 2.7, ( CUDA 9.1 for GPU acceleration ) scipy ( for data augmentation ), sacred ( https://github.com/IDSIA/sacred )
  
 
 
@@ -26,37 +27,31 @@ No building is required, just clone or download the github project in a director
 # Usage
 /python should start python 2.7 . You can check the version with python --version
 ```
-usage: /python main.py [-h] [-mbs N] [-j N] [--epochs N] [-lr LR] [--momentum M]
-               [-es M] [--weight-decay W] [-r PATH] [-e] [-s] [-c] [-p] [-txt]
-               [-bn]
-               dataset
-
+usage: /python main.py 
 ```
-## positional arguments
-* `dataset` ISBI2012
 
-## Optional arguments
-*  `-h, --help`            show the help message
-*  `-mbs N, --mini-batch-size N`
+## Settings 
+Sacred is used to configure the setup. A config.json file is used to load the parameters.
+
+*  `batch_size`
                         mini batch size (default: 1). For 8k memory on gpu,
                         minibatchsize of 2-3 possible
-*  `-j N, --workers N`     number of data loading workers (default: 2)
-*  `--epochs N`            number of total epochs to run (default: 20)
-*  `-lr LR`                initial learning rate (default: 0.001)
-*  `--momentum M`          momentum (default: 0.99)
-*  `-es M, --epochsave M`  save model every M epoch (default: 1)
-*  `--weight-decay W, -wd W`
-                        weight decay (L2 penalty ) (default:0)
-*  `-r PATH, --resume PATH`
-                        relative path to latest checkpoint, load all needed data to resume the network (default: none)   
-*  `-e, --evaluate`        evaluate model on validation set
-*  `-s, --save-images`     save the first image of output each epoche
-*  `-c, --cpu`             use cpu instead of gpu
-*  `-p, --pad`             use padding at each 3x3 convolution to maintain image
+*  `workers`     number of data loading workers (default: 2)
+*  `learningrate`                initial learning rate (default: 0.001)
+*  `momentum`          momentum (default: 0.99)
+*  `weightdecay`        weight decay (L2 penalty ) (default:0)
+*  `epochs`            number of total epochs to run (default: 600)
+
+*  `resume`      relative path to latest checkpoint, load all needed data to resume the network (default: none)   
+*  `evaluate`        evaluate model on validation set
+*  `saveimages`     save the first image of output each epoche
+*  `cpu`             use cpu instead of gpu
+*  `padding`             use padding at each 3x3 convolution to maintain image
                         size
-*  `-txt`                  save console output in txt
-*  `-bn`                   use u-net with batchnorm layers added after each
-                        convolution
+*  `txtinfo`                  save console output in txt
+*  `classweight`                 use classweights
+
+
 
 
 
@@ -66,7 +61,7 @@ usage: /python main.py [-h] [-mbs N] [-j N] [--epochs N] [-lr LR] [--momentum M]
 
 Use the ISBI2012 dataset and run for 600 epochs. Use padding at each 3x3 convolution and save information about the used settings and losses each epoch in a txt file.
 ```
-python main.py ISBI2012 --epochs 600 -p -txt
+python main.py
 ```
 the txt file looks like this:
 ```
