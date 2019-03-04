@@ -68,8 +68,8 @@ class Unet(nn.Module):
 
         # weights can be initialized here:
         # for example:
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
+        for idx, m in enumerate(self.modules()):
+            if isinstance(m, nn.Conv2d) or isinstance(m, nn.ConvTranspose2d):
                 # force float division, therefore use 2.0
                 # http://andyljones.tumblr.com/post/110998971763/an-explanation-of-xavier-initialization
                 # https://arxiv.org/abs/1502.01852
@@ -80,16 +80,6 @@ class Unet(nn.Module):
                 nn.init.normal_(m.weight, std=std)
                 #nn.init.xavier_normal_(m.weight)
                 nn.init.constant_(m.bias, 0)
-            # elif isinstance(m, nn.BatchNorm2d):
-            #     print
-            #    # nn.init.constant_(m.weight, 1)
-            #     #nn.init.constant_(m.bias, 0)
-            # elif isinstance(m, nn.ConvTranspose2d):
-            #     print
-            #    # nn.init.xavier_normal_(m.weight, 1)
-            # elif isinstance(m, nn.MaxPool2d):
-            #     print
-            #     #nn.init.xavier_normal_(m.weight)
 
     def forward(self, x, padding=False):
 
@@ -130,8 +120,11 @@ class Unet(nn.Module):
 
         # input, probability of an element to be zero-ed
         # https://pytorch.org/docs/master/nn.html#dropout
-        x = F.dropout(x, 0.5)
+
+        # old version, image is coppied after dropout
         x_copy7_8 = x
+        x = F.dropout(x, 0.5)
+        # x_copy7_8 = x
         x = self.maxPool4(x)
 
         x = F.relu(self.conv9(F.pad(x, pad, padmode)))

@@ -1,0 +1,29 @@
+{
+  "augment": {
+    "sigmamin": 70,
+    "angleparts": 36,
+    "sigmamax": 80,
+    "minscale": 1000,
+    "maxscale": 10000
+  },
+  "params": {
+    "batch_size": 1,
+    "workers": 2,
+    "learningrate": 0.001,
+    "momentum": 0.99,
+    "weightdecay": 0,
+    "startepoch": 0,
+    "epochs": 600,
+    "resume": "",
+    "evaluate": false,
+    "saveimages": true,
+    "savedir": "./Orig_U-net/",
+    "cpu": false,
+    "padding": true,
+    "txtinfo": true,
+    "classweight": [
+      0.75,
+      0.25
+    ]
+  }
+}

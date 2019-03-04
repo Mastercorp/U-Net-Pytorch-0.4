@@ -2,7 +2,13 @@ import glob
 from torch.utils import data
 from PIL import Image
 import torchvision
-import numpy as np
+import random
+import dataaug
+
+import paramssacred
+
+ex = paramssacred.ex
+
 
 class ISBIDataset(data.Dataset):
 
@@ -17,51 +23,63 @@ class ISBIDataset(data.Dataset):
         self.totensor = totensor
         self.changetotensor = torchvision.transforms.ToTensor()
 
-        self.rand_vflip = False
-        self.rand_hflip = False
-        self.rand_rotate = False
-        self.angle = 0
+        self.trainfiles = sorted(glob.glob(self.gloob_dir_train),
+                                 key=lambda name: int(name[self.gloob_dir_train.rfind('*'):
+                                                           -(len(self.gloob_dir_train) - self.gloob_dir_train.rfind(
+                                                               '.'))]))
+
+        self.labelfiles = sorted(glob.glob(self.gloob_dir_label),
+                                 key=lambda name: int(name[self.gloob_dir_label.rfind('*'):
+                                                           -(len(self.gloob_dir_label) - self.gloob_dir_label.rfind(
+                                                               '.'))]))
 
     def __len__(self):
         'Denotes the total number of samples'
         return self.length
 
-    def __getitem__(self, index):
+    @ex.capture
+    def __getitem__(self, index, augment):
         'Generates one sample of data'
         # files are sorted depending the last number in their filename
         # for example : "./ISBI 2012/Train-Volume/train-volume-*.tif"
-        trainfiles = sorted(glob.glob(self.gloob_dir_train),
-                            key=lambda name: int(name[self.gloob_dir_train.rfind('*'):
-                                                      -(len(self.gloob_dir_train) - self.gloob_dir_train.rfind('.'))]))
 
-        labelfiles = sorted(glob.glob(self.gloob_dir_label),
-                            key=lambda name: int(name[self.gloob_dir_label.rfind('*'):
-                                                      -(len(self.gloob_dir_label) - self.gloob_dir_label.rfind('.'))]))
-
-        trainimg = Image.open(trainfiles[index])
-        trainlabel = Image.open(labelfiles[index])
-
-
+        trainimg1 = Image.open(self.trainfiles[index]).convert("L")
+        trainlabel1 = Image.open(self.labelfiles[index]).convert("L")
+        trainimg = trainimg1
+        trainlabel = trainlabel1
         if not self.eval:
-            if self.rand_vflip:
-                trainlabel = trainlabel.transpose(Image.FLIP_LEFT_RIGHT)
-                trainimg = trainimg.transpose(Image.FLIP_LEFT_RIGHT)
 
-            if self.rand_hflip:
-                trainlabel = trainlabel.transpose(Image.FLIP_TOP_BOTTOM)
-                trainimg = trainimg.transpose(Image.FLIP_TOP_BOTTOM)
+            # rotate input image
+            angle = random.randint(0, augment["angleparts"] - 1) * (360.0 / augment["angleparts"])
+            trainimg1 = dataaug.rotate_img(trainimg1, angle)
 
-            if self.rand_rotate:
-                # Add padding to the image to remove black boarders when rotating
-                # image is croped to true size later.
-                trainimg = Image.fromarray(np.pad(np.asarray(trainimg), ((107, 107), (107, 107)), 'reflect'))
-                trainlabel = Image.fromarray(np.pad(np.asarray(trainlabel), ((107, 107), (107, 107)), 'reflect'))
+            trainlabel1 = dataaug.rotate_img(trainlabel1, angle)
+            trainlabel1 = dataaug.maplabel(trainlabel1, 127, 0, 255)
 
-                trainlabel = trainlabel.rotate(self.angle)
-                trainimg = trainimg.rotate(self.angle)
-                # crop rotated image to true size
-                trainlabel = self.crop(trainlabel)
-                trainimg = self.crop(trainimg)
+            if random.random() < 0.5:
+                trainlabel1 = dataaug.flip_lr(trainlabel1)
+                trainimg1 = dataaug.flip_lr(trainimg1)
+
+            if random.random() < 0.5:
+                trainlabel1 = dataaug.flip_tb(trainlabel1)
+                trainimg1 = dataaug.flip_tb(trainimg1)
+
+            if random.random() < 2:
+
+                sigma = random.randint(augment["sigmamin"], augment["sigmamax"])
+                # to shift in gradient direction -, else it shifts in the other direction
+                scalex = random.randint(augment["minscale"], augment["maxscale"])
+                scaley = random.randint(augment["minscale"], augment["maxscale"])
+                if random.random() < 0.5:
+                    scalex = scalex * -1
+                if random.random() < 0.5:
+                    scaley = scaley * -1
+
+                trainimg, indices = dataaug.gradtrans(trainimg1, scalex, scaley, sigma)
+
+                trainlabel1 = dataaug.indextrans(trainlabel1, indices)
+                trainlabel = dataaug.maplabel(trainlabel1, 127, 0, 255)
+
 
 
         # when padding is used, dont crop the label image
@@ -69,6 +87,7 @@ class ISBIDataset(data.Dataset):
             trainlabel = self.crop_nopad(trainlabel)
 
         if self.totensor:
+            # test if NLL needs long
             trainlabel = self.changetotensor(trainlabel).long()
             trainimg = self.changetotensor(trainimg)
 
