@@ -3,7 +3,7 @@ U-Net-Pytorch-0.4 is a custom U-Net implementation in python 2.7 for Pytorch 0.4
 Furthermore, a custom dataloader is introduced, which can load the ISBI 2012 Dataset.
 Dataaugmentation is applied in the dataloader.
 
-Details about the U-Net network can be found on the U-Net [project page](https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/).
+Details about the U-Net network can be found on the U-Net [project page](<https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/>).
 The implementation in this repository is tested on Ubuntu 16.04 with Python 2.7    
 
 In my  [report](https://github.com/Mastercorp/U-Net-Pytorch-0.4/blob/master/practica%20final.pdf), you can find additional information about the used methods and evaluation.
@@ -13,7 +13,7 @@ The implementation is freely available under the MIT License,
 meaning that you can basically do with the code whatever you want.
 
 ## Dependencies
-*   Pytorch 0.4, Python 2.7, ( CUDA 9.1 for GPU acceleration ) scipy ( for data augmentation ), sacred ( https://github.com/IDSIA/sacred )
+*   Pytorch 0.4, Python 2.7, ( CUDA 9.1 for GPU acceleration ) scipy ( for data augmentation ), sacred ( <https://github.com/IDSIA/sacred> )
  
 ## Building
 No building is required, just clone or download the github project in a directory. The programm is tested on Ubuntu 16.04 with a Geforce GTX 1070 8GB Nvidia Driver 390.48 CUDA 9.1, Python 2.7.14 and Pytorch 0.4  
@@ -83,9 +83,9 @@ Vertcoin: VbKfmr7B352WEPs3Qi7VeC4WviGS1jGQvd
 
 ## Sources
 U-Net: Convolutional Networks for Biomedical Image Segmentation   
-https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/   
+<https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/> 
 Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. "U-net: Convolutional networks for biomedical image segmentation." International Conference on Medical image computing and computer-assisted intervention. Springer, Cham, 2015.   
 
 ISBI 2012 Segmentation Challenge   
-http://brainiac2.mit.edu/isbi_challenge/home   
+<http://brainiac2.mit.edu/isbi_challenge/home>   
 Ignacio Arganda-Carreras, Srinivas C. Turaga, Daniel R. Berger, Dan Ciresan, Alessandro Giusti, Luca M. Gambardella, Jürgen Schmidhuber, Dmtry Laptev, Sarversh Dwivedi, Joachim M. Buhmann, Ting Liu, Mojtaba Seyedhosseini, Tolga Tasdizen, Lee Kamentsky, Radim Burget, Vaclav Uher, Xiao Tan, Chanming Sun, Tuan D. Pham, Eran Bas, Mustafa G. Uzunbas, Albert Cardona, Johannes Schindelin, and H. Sebastian Seung. Crowdsourcing the creation of image segmentation algorithms for connectomics. Frontiers in Neuroanatomy, vol. 9, no. 142, 2015.   
