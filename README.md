@@ -12,17 +12,11 @@ In my  [report](https://github.com/Mastercorp/U-Net-Pytorch-0.4/blob/master/prac
 The implementation is freely available under the MIT License,
 meaning that you can basically do with the code whatever you want.
 
-
-
 ## Dependencies
 * Pytorch 0.4, Python 2.7, ( CUDA 9.1 for GPU acceleration ) scipy ( for data augmentation ), sacred ( https://github.com/IDSIA/sacred )
  
-
-
-
 ## Building
 No building is required, just clone or download the github project in a directory. The programm is tested on Ubuntu 16.04 with a Geforce GTX 1070 8GB Nvidia Driver 390.48 CUDA 9.1, Python 2.7.14 and Pytorch 0.4  
-
 
 ## Usage
 /python should start python 2.7 . You can check the version with python --version
@@ -51,14 +45,7 @@ Sacred is a tool to help you configure, organize, log and reproduce experiments.
 *  `txtinfo`                  save console output in txt
 *  `classweight`                 use classweights
 
-
-
-
-
-
 ## Examples
-
-
 Use the ISBI2012 dataset and run for 600 epochs. Use padding at each 3x3 convolution and save information about the used settings and losses each epoch in a txt file.
 ```
 python main.py
@@ -84,7 +71,6 @@ Verge   : DN5QsxVaFLykVykGNFqRdGFvi5zg2zz3Rq
 Reddcoin: Rsjofwt2TNu6Gf6eQdzyUhJe2J6vLsKoBq  
 Dogecoin: DM13fiivexaZf35HTQ7AKBFLxNTHhJXu1c  
 Vertcoin: VbKfmr7B352WEPs3Qi7VeC4WviGS1jGQvd  
-
 
 ## Sources
 U-Net: Convolutional Networks for Biomedical Image Segmentation   
