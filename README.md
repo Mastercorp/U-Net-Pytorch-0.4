@@ -8,29 +8,29 @@ The implementation in this repository is tested on Ubuntu 16.04 with Python 2.7
 
 In my  [report](https://github.com/Mastercorp/U-Net-Pytorch-0.4/blob/master/practica%20final.pdf), you can find additional information about the used methods and evaluation.
 
-# License
+## License
 The implementation is freely available under the MIT License,
 meaning that you can basically do with the code whatever you want.
 
 
 
-# Dependencies
+## Dependencies
 * Pytorch 0.4, Python 2.7, ( CUDA 9.1 for GPU acceleration ) scipy ( for data augmentation ), sacred ( https://github.com/IDSIA/sacred )
  
 
 
 
-# Building
+## Building
 No building is required, just clone or download the github project in a directory. The programm is tested on Ubuntu 16.04 with a Geforce GTX 1070 8GB Nvidia Driver 390.48 CUDA 9.1, Python 2.7.14 and Pytorch 0.4  
 
 
-# Usage
+## Usage
 /python should start python 2.7 . You can check the version with python --version
 ```
 usage: /python main.py 
 ```
 
-# Settings 
+## Settings 
 Sacred is a tool to help you configure, organize, log and reproduce experiments. All important settings can be changed in the config.json file. ( only the dataset direction is hardcoded into main.py at line 203 to 214. If you use another dataset, just change the used direction. )
 
 *  `batch_size`
@@ -56,7 +56,7 @@ Sacred is a tool to help you configure, organize, log and reproduce experiments.
 
 
 
-# Examples
+## Examples
 
 
 Use the ISBI2012 dataset and run for 600 epochs. Use padding at each 3x3 convolution and save information about the used settings and losses each epoch in a txt file.
@@ -77,7 +77,7 @@ Epoche [ 2] train_loss: 0.4630 val_loss: 0.5017 loop time: 5.41091
 Epoche [ 3] train_loss: 0.4460 val_loss: 0.4637 loop time: 5.45516
 ```
 
-# Donate
+## Donate
 Bitcoin: 1NE7tpCaHXMG3VP2oQrx1L53MEPnAp39xM  
 Litecoin: LLCmNPWBt8TxnNuaTWfyDdajXM5rZPuzsT  
 Verge   : DN5QsxVaFLykVykGNFqRdGFvi5zg2zz3Rq   
@@ -86,7 +86,7 @@ Dogecoin: DM13fiivexaZf35HTQ7AKBFLxNTHhJXu1c
 Vertcoin: VbKfmr7B352WEPs3Qi7VeC4WviGS1jGQvd  
 
 
-# Sources
+## Sources
 U-Net: Convolutional Networks for Biomedical Image Segmentation   
 https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/   
 Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. "U-net: Convolutional networks for biomedical image segmentation." International Conference on Medical image computing and computer-assisted intervention. Springer, Cham, 2015.   
