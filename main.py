@@ -84,7 +84,7 @@ def train(trainloader, model, criterion, optimizer, epoch, params):
 
 
 @ex.capture
-def eval(valloader, model, criterion, save_image, params):
+def evaluate(valloader, model, criterion, save_image, params):
     # switch the model to eval mode ( important for dropout layers or batchnorm layers )
     model.eval()
     loss_sum = 0
@@ -277,7 +277,7 @@ def my_main(params):
             myfile.close()
 
     if params["evaluate"]:
-        print(" avg loss: " + str(eval(valloader, model, criterion, True)))
+        print(" avg loss: " + str(evaluate(valloader, model, criterion, True)))
     else:
         print ("***** Start Training *****")
 
@@ -287,7 +287,7 @@ def my_main(params):
             start_time = time.time()
 
             train_loss.append(train(trainloader, model, criterion, optimizer, epoch))
-            val_loss.append(eval(valloader, model, criterion, False))
+            val_loss.append(evaluate(valloader, model, criterion, False))
             end_time = time.time()
 
             print('Epoch [%5d] train_loss: %.4f val_loss: %.4f loop time: %.5f' %
