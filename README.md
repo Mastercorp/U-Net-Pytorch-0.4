@@ -31,7 +31,7 @@ usage: /python main.py
 ```
 
 ## Settings 
-Sacred is used to configure the setup. A config.json file is used to load the parameters.
+Sacred is a tool to help you configure, organize, log and reproduce experiments. All important settings can be changed in the config.json file. ( only the dataset direction is hardcoded into main.py at line 203 to 214. If you use another dataset, just change the used direction. )
 
 *  `batch_size`
                         mini batch size (default: 1). For 8k memory on gpu,
