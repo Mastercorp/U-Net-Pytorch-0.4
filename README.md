@@ -28,30 +28,17 @@ usage: /python main.py
 Sacred is a tool to help you configure, organize, log and reproduce experiments. All important settings can be changed in the config.json file. ( only the dataset direction is hardcoded into main.py at line 203 to 214. If you use another dataset, just change the used direction. )
 
 *   `batch_size`   mini batch size (default: 1). For 8k memory on gpu, minibatchsize of 2-3 possible
-
 *   `workers`     number of data loading workers (default: 2)
-
 *   `learningrate`                initial learning rate (default: 0.001)
-
 *   `momentum`          momentum (default: 0.99)
-
 *   `weightdecay`        weight decay (L2 penalty ) (default:0)
-
 *   `epochs`            number of total epochs to run (default: 600)
-
-
 *   `resume`      relative path to latest checkpoint, load all needed data to resume the network (default: none)
-
 *   `evaluate`        evaluate model on validation set
-
 *   `saveimages`     save the first image of output each epoche
-
 *   `cpu`             use cpu instead of gpu
-
 *   `padding`             use padding at each 3x3 convolution to maintain image size
-
 *   `txtinfo`                  save console output in txt
-
 *   `classweight`                 use classweights
 
 ## Examples
