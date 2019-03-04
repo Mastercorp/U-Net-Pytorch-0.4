@@ -8,23 +8,23 @@ The implementation in this repository is tested on Ubuntu 16.04 with Python 2.7
 
 In my  [report](https://github.com/Mastercorp/U-Net-Pytorch-0.4/blob/master/practica%20final.pdf), you can find additional information about the used methods and evaluation.
 
-# License
+## License
 The implementation is freely available under the MIT License,
 meaning that you can basically do with the code whatever you want.
 
 
 
-# Dependencies
+## Dependencies
 * Pytorch 0.4, Python 2.7, ( CUDA 9.1 for GPU acceleration ) scipy ( for data augmentation ), sacred ( https://github.com/IDSIA/sacred )
  
 
 
 
-# Building
+## Building
 No building is required, just clone or download the github project in a directory. The programm is tested on Ubuntu 16.04 with a Geforce GTX 1070 8GB Nvidia Driver 390.48 CUDA 9.1, Python 2.7.14 and Pytorch 0.4  
 
 
-# Usage
+## Usage
 /python should start python 2.7 . You can check the version with python --version
 ```
 usage: /python main.py 
