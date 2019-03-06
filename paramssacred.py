@@ -9,8 +9,6 @@ ex.add_source_file("ISBI2012Data.py")
 ex.add_source_file("model.py")
 ex.add_source_file("dataaug.py")
 
-ex.observers.append(mo)
-
 ex.add_config('config.json')
 
 
