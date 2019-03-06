@@ -24,6 +24,8 @@ def my_config(params):
             dirindex += 1
         params["savedir"] = params["savedir"][:-1] + str(dirindex) + "/"
         os.makedirs(str(params["savedir"]))
+    else:
+        params["savedir"] = params["resume"][:params["resume"].rfind("/")+1]
 
     # if not params["evaluate"]:
     #     mongourl = (("mongodb://mongodbconnection")

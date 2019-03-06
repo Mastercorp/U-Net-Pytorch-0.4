@@ -70,7 +70,7 @@ def train(trainloader, model, criterion, optimizer, epoch, params):
 
         # to save every image, just remove the "and (i == 0)" part
         if params["saveimages"] and (i == 0):
-            save_images(outputs, str(params["savedir"]), str("class_{}_" + epoch + "_image_" + i),
+            save_images(outputs, str(params["savedir"] + "outputs/"), str("class_{}_" + str(epoch) + "_image_" + str(i)),
                         int(params["classes"]))
 
         loss = criterion(torch.log(outputs), label)
