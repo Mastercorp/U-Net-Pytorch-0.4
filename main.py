@@ -23,6 +23,15 @@ def save_checkpoint(state, filename, params):
     torch.save(state, str(params["savedir"]) + filename)
 
 
+def save_images(outputs, filepath, filename, classes):
+    # copy first image in outputs back to cpu and save it
+    if not os.path.exists(filepath):
+        os.makedirs(filepath)
+    for i in range(int(classes)):
+        img = Image.fromarray((outputs[0][i][:][:].cpu().detach().numpy() * 255).astype(np.uint8))
+        img.save(filepath + filename.format(i) + '.tif')
+
+
 @ex.capture
 def train(trainloader, model, criterion, optimizer, epoch, params):
     model.train()
@@ -55,19 +64,16 @@ def train(trainloader, model, criterion, optimizer, epoch, params):
         # zero the parameter gradients
         optimizer.zero_grad()
 
-        # forward + backward + optimize
-        # if padding is true, one row and one column is added at left, right, top and bottom at each convolution
-        # to maintain the original size of the image
-        # (1, 2, 512, 512)
+
         outputs = model(train, padding=params["padding"])
 
 
+        # to save every image, just remove the "and (i == 0)" part
         if params["saveimages"] and (i == 0):
-            save_images(outputs, str(params["savedir"]) + str(params["learningrate"]) + '/', epoch, index=i)
-
+            save_images(outputs, str(params["savedir"]), str("class_{}_" + epoch + "_image_" + i),
+                        int(params["classes"]))
 
         loss = criterion(torch.log(outputs), label)
-
         loss.backward()
 
         optimizer.step()
@@ -84,7 +90,7 @@ def train(trainloader, model, criterion, optimizer, epoch, params):
 
 
 @ex.capture
-def evaluate(valloader, model, criterion, save_image, params):
+def evaluate(valloader, model, criterion, params):
     # switch the model to eval mode ( important for dropout layers or batchnorm layers )
     model.eval()
     loss_sum = 0
@@ -97,25 +103,14 @@ def evaluate(valloader, model, criterion, save_image, params):
 
         label = label.to(udevice)
 
-        # for the CrossEntropyLoss:
-        # outputs needs to be of size: Minibatch, classsize, dim 1, dim 2 , ...
-        # outputs  are 2 classes with 2d images. Channelsize = class size
-        # label needs to be of format: Minibatch, dim 1, dim 2, ...
-        # i cut the channel info for it to work, because it is only a 2d image.
-        # as an alternative, one could add 1 channel for class in train, than label does not need any change
-        # label normally looks like: ( minibatchsize, 1, width, height )
         label = label.view(label.size(0), label.size(2), label.size(3))
 
         # forward + backward + optimize
         outputs = model(val, padding=params["padding"])
-
         loss = criterion(torch.log(outputs), label)
 
         running_loss = loss.item()
         loss_sum = loss_sum + running_loss
-
-        if save_image:
-            save_images_eval(outputs, './eval/', index=i + 1)
 
         del outputs, val, label, loss
 
@@ -123,37 +118,21 @@ def evaluate(valloader, model, criterion, save_image, params):
     return loss_avg
 
 
-def save_images_eval(outputs, directory, index):
-    # copy first image in outputs back to cpu and save it
+@ex.capture
+def predict(valloader, model, params):
+    model.eval()
+    for i, data in enumerate(valloader):
+        # get train and label data
+        val, label = data
+        # put on gpu or cpu
+        val = val.to(udevice)
 
-    y = outputs[0][1][:][:].cpu().detach().numpy()
+        outputs = model(val, padding=params["padding"])
 
-    # convert image to save it properly
-    # for visibility in grayscale
-    # for competition comment this 2 lines out
-    # probabilities in the range of 0-1
+        save_images(outputs, str(params["savedir"] + "eval/"), str("class_{}_image_" + str((i+1))),
+                    int(params["classes"]))
 
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-    y = Image.fromarray(y)
-    name = directory + "%03d.tif" % index
-    y.save(name)
-
-
-def save_images(outputs, directory, epoch, index):
-    # copy first image in outputs back to cpu and save it
-    x = outputs[0][0][:][:].cpu().detach().numpy()
-    y = outputs[0][1][:][:].cpu().detach().numpy()
-
-    x = (x * 255).astype(np.uint8)
-    y = (y * 255).astype(np.uint8)
-
-    x = Image.fromarray(x)
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-    x.save(directory + 'class1_' + str(epoch) + '_image_' + str(index) + '.tif')
-    y = Image.fromarray(y)
-    y.save(directory + 'class2_' + str(epoch) + '_image_' + str(index) + '.tif')
+        del outputs, val, label
 
 
 torch.backends.cudnn.deterministic = True
@@ -277,7 +256,8 @@ def my_main(params):
             myfile.close()
 
     if params["evaluate"]:
-        print(" avg loss: " + str(evaluate(valloader, model, criterion, True)))
+        predict(valloader, model)
+        print("evaluation finished")
     else:
         print ("***** Start Training *****")
 
@@ -287,7 +267,7 @@ def my_main(params):
             start_time = time.time()
 
             train_loss.append(train(trainloader, model, criterion, optimizer, epoch))
-            val_loss.append(evaluate(valloader, model, criterion, False))
+            val_loss.append(evaluate(valloader, model, criterion))
             end_time = time.time()
 
             print('Epoch [%5d] train_loss: %.4f val_loss: %.4f loop time: %.5f' %
@@ -336,3 +316,4 @@ def my_main(params):
             }, filename=filename)
 
         print ("*****   End  Programm   *****")
+

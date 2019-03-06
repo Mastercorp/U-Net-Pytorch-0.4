@@ -9,11 +9,6 @@ ex.add_source_file("ISBI2012Data.py")
 ex.add_source_file("model.py")
 ex.add_source_file("dataaug.py")
 
-# mongourl = ("mongodb://mongodbconnection")
-# ex.observers.append(MongoObserver.create(url=mongourl,
-#                                          db_name='dbname'))
-
-
 ex.observers.append(mo)
 
 ex.add_config('config.json')
@@ -31,3 +26,8 @@ def my_config(params):
             dirindex += 1
         params["savedir"] = params["savedir"][:-1] + str(dirindex) + "/"
         os.makedirs(str(params["savedir"]))
+
+    # if not params["evaluate"]:
+    #     mongourl = (("mongodb://mongodbconnection")
+    #     ex.observers.append(MongoObserver.create(url=mongourl,
+    #                                              db_name='dbname'))

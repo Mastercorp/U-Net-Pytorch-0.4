@@ -24,6 +24,7 @@
     "classweight": [
       0.75,
       0.25
-    ]
+    ],
+    "classes":2
   }
 }
