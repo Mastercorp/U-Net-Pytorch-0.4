@@ -63,7 +63,7 @@ Epoche [ 3] train_loss: 0.4460 val_loss: 0.4637 loop time: 5.45516
 ```
 
 ## Donate
-Bitcoin: 17C7sAiGw7a7g7wZx3eVbe5Vuqs35EJhSL
+Bitcoin: 17C7sAiGw7a7g7wZx3eVbe5Vuqs35EJhSL  
 Litecoin: LLCmNPWBt8TxnNuaTWfyDdajXM5rZPuzsT  
 Verge   : DN5QsxVaFLykVykGNFqRdGFvi5zg2zz3Rq   
 Reddcoin: Rsjofwt2TNu6Gf6eQdzyUhJe2J6vLsKoBq  
