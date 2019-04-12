@@ -34,8 +34,8 @@ def gradtrans(img, scalex, scaley, sigma):
 
     aimg = np.asarray(img)
 
-    dx = np.gradient(aimg.astype('float32'), axis=0)
-    dy = np.gradient(aimg.astype('float32'), axis=1)
+    dx = np.gradient(aimg.astype('float32'), axis=1)
+    dy = np.gradient(aimg.astype('float32'), axis=0)
 
     # divide by max abs value of whole matrix
     dx /= np.max(np.abs(dx))
