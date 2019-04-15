@@ -37,13 +37,7 @@ def train(trainloader, model, criterion, optimizer, epoch, params):
     model.train()
     loss_sum = 0
     for i, data in enumerate(trainloader):
-        # when using enumerate on trainloader, the whole set is used ( all 22 images, but in shuffled order
-        # i want to randomly use my data.
-        # for i, data in enumerate(trainloader):
-
-        # Forces the batch to use 30 samples and reduce overfitting when shuffle = True
         # get train and label data
-        # train, label = data
 
         # the first return value, which is an index.
         train, label = data
