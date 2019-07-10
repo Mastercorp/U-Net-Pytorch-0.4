@@ -27,7 +27,7 @@ usage: /python main.py
 ```
 
 ## Settings 
-Sacred is a tool to help you configure, organize, log and reproduce experiments. All important settings can be changed in the config.json file. ( only the dataset direction is hardcoded into main.py at line 203 to 214. If you use another dataset, just change the used direction. )
+Sacred is a tool to help you configure, organize, log and reproduce experiments. All important settings can be changed in the config.json file. ( only the dataset direction is hardcoded into main.py at line 176 to 187. If you use another dataset, just change the used direction. )
 
 *   `batch_size`   mini batch size (default: 1). For 8k memory on gpu, minibatchsize of 2-3 possible for ISBI 2012
 *   `workers`     number of data loading workers (default: 2)
