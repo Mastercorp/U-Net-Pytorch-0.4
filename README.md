@@ -8,7 +8,6 @@ Dataaugmentation is applied in the dataloader.
 Details about the U-Net network can be found on the U-Net [project page](<https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/>).
 The implementation in this repository is tested on Ubuntu 16.04 with Python 2.7    
 
-In my  [report](https://github.com/Mastercorp/U-Net-Pytorch-0.4/blob/master/practica%20final.pdf), you can find additional information about the used methods and evaluation.
 
 ## License
 The implementation is freely available under the MIT License,
