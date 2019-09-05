@@ -158,8 +158,8 @@ class Unet(nn.Module):
         x = F.relu(self.conv17(F.pad(x, pad, padmode)))
         x = F.relu(self.conv18(F.pad(x, pad, padmode)))
 
-        x = F.relu(self.conv19(x))
-
+        #x = F.relu(self.conv19(x))
+        x = self.conv19(x)
         x = self.softmax(x)
         return x
 
