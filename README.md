@@ -61,14 +61,6 @@ Epoche [ 2] train_loss: 0.4630 val_loss: 0.5017 loop time: 5.41091
 Epoche [ 3] train_loss: 0.4460 val_loss: 0.4637 loop time: 5.45516
 ```
 
-## Donate
-Bitcoin: 17C7sAiGw7a7g7wZx3eVbe5Vuqs35EJhSL  
-Litecoin: LLCmNPWBt8TxnNuaTWfyDdajXM5rZPuzsT  
-Verge   : DN5QsxVaFLykVykGNFqRdGFvi5zg2zz3Rq   
-Reddcoin: Rsjofwt2TNu6Gf6eQdzyUhJe2J6vLsKoBq  
-Dogecoin: DM13fiivexaZf35HTQ7AKBFLxNTHhJXu1c  
-Vertcoin: VbKfmr7B352WEPs3Qi7VeC4WviGS1jGQvd  
-
 ## Sources
 U-Net: Convolutional Networks for Biomedical Image Segmentation   
 <https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/> 
